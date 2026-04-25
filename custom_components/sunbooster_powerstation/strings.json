@@ -1,0 +1,31 @@
+{
+  "config": {
+    "step": {
+      "user": {
+        "title": "Sunbooster Powerstation",
+        "description": "Bitte gib deinen Sunbooster-Schlüssel ein, den du von uns per E-Mail erhalten hast.",
+        "data": {
+          "customer_key": "Sunbooster-Schlüssel",
+          "proxy_url": "Sunbooster Server (Standard belassen)",
+          "scan_interval": "Aktualisierungsintervall (Sekunden)"
+        }
+      }
+    },
+    "error": {
+      "invalid_key": "Der Sunbooster-Schlüssel ist ungültig oder wurde widerrufen. Bitte kontaktiere office@sunbooster.com.",
+      "cannot_connect": "Verbindung zum Sunbooster-Server fehlgeschlagen."
+    },
+    "abort": {
+      "already_configured": "Diese Powerstation ist bereits eingerichtet."
+    }
+  },
+  "options": {
+    "step": {
+      "init": {
+        "data": {
+          "scan_interval": "Aktualisierungsintervall (Sekunden)"
+        }
+      }
+    }
+  }
+}

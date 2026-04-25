@@ -1,0 +1,7 @@
+{
+  "name": "Sunbooster Powerstation",
+  "render_readme": true,
+  "country": ["AT", "DE", "CH"],
+  "homeassistant": "2024.1.0",
+  "iot_class": "Cloud Polling"
+}
