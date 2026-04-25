@@ -24,10 +24,13 @@ PROP_MIG_CONNECTION = "MIG_connection_data_hm"
 PROP_AC_SWITCH = "ac_switch_hm"
 PROP_DC_SWITCH = "dc_switch_hm"
 PROP_USB_SWITCH = "usb_switch"
+PROP_SMART_GRID = "smart_on_grid_switch"
+PROP_SOC_MIG_SWITCH = "soc_mig_switch"
+
 
 CHARGE_MODE_LABELS = {"0": "off", "1": "normal", "2": "fast", "3": "silent"}
 
-# Watt -> Acceleronix MIG enum (charge from grid)
+# Watt -> Acceleronix MIG enum (grid feed-in / Nulleinspeisung)
 MIG_WATT_TO_ENUM = {
     0: "0", 100: "1", 150: "2", 200: "3", 250: "4", 300: "5",
     350: "6", 400: "7", 450: "8", 500: "9", 550: "10",

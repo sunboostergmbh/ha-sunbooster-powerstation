@@ -20,7 +20,7 @@ async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry, async_add_e
     device_key = bundle["meta"].get("device_key", "unknown")
     async_add_entities([
         ChargePowerSetpoint(coord, api, device_key),
-        GridChargePowerSetpoint(coord, api, device_key),
+        GridFeedInPowerSetpoint(coord, api, device_key),
     ])
 
 
@@ -51,8 +51,8 @@ class ChargePowerSetpoint(SunboosterEntity, NumberEntity):
         await self.coordinator.async_request_refresh()
 
 
-class GridChargePowerSetpoint(SunboosterEntity, NumberEntity):
-    _attr_name = "Netz-Ladeleistung (MIG)"
+class GridFeedInPowerSetpoint(SunboosterEntity, NumberEntity):
+    _attr_name = "Netz-Einspeisung max (MIG)"
     _attr_native_unit_of_measurement = UnitOfPower.WATT
     _attr_native_min_value = 0
     _attr_native_max_value = 800

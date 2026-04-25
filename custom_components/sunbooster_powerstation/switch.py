@@ -5,13 +5,15 @@ from homeassistant.config_entries import ConfigEntry
 from homeassistant.core import HomeAssistant
 from homeassistant.helpers.entity_platform import AddEntitiesCallback
 
-from .const import DOMAIN, PROP_AC_SWITCH, PROP_DC_SWITCH, PROP_USB_SWITCH
+from .const import DOMAIN, PROP_AC_SWITCH, PROP_DC_SWITCH, PROP_USB_SWITCH, PROP_SMART_GRID, PROP_SOC_MIG_SWITCH
 from .entity import SunboosterEntity
 
 SWITCHES = (
     (PROP_AC_SWITCH, "AC-Ausgang"),
     (PROP_DC_SWITCH, "DC-Ausgang"),
     (PROP_USB_SWITCH, "USB-Ausgang"),
+    (PROP_SMART_GRID, "Netz-Einspeisung"),
+    (PROP_SOC_MIG_SWITCH, "Auto-Einspeisung (SOC)"),
 )
 
 
