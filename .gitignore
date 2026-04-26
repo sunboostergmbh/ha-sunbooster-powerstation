@@ -3,3 +3,5 @@ __pycache__/
 .DS_Store
 .vscode/
 *.bak
+README.md.bak.v1.0.1
+*.bak*
