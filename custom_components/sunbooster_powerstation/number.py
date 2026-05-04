@@ -56,7 +56,7 @@ class GridFeedInPowerSetpoint(SunboosterEntity, NumberEntity):
     _attr_native_unit_of_measurement = UnitOfPower.WATT
     _attr_native_min_value = 0
     _attr_native_max_value = 800
-    _attr_native_step = 50
+    _attr_native_step = 100  # Acceleronix MIG enum is defined in 50W steps from 100W up; use 100 step to avoid landing on the unmapped 50W slot.
     _attr_mode = NumberMode.SLIDER
 
     def __init__(self, coordinator, api, device_key):
@@ -73,10 +73,19 @@ class GridFeedInPowerSetpoint(SunboosterEntity, NumberEntity):
 
     async def async_set_native_value(self, value: float) -> None:
         # Snap to nearest 50W
-        watts = max(0, min(800, int(round(value / 50.0)) * 50))
-        enum_val = MIG_WATT_TO_ENUM.get(watts)
-        if enum_val is None:
-            _LOGGER.warning("No MIG enum mapping for %sW", watts)
-            return
+        requested = max(0, min(800, round(value)))
+        # Acceleronix only accepts a discrete set of grid feed-in steps. If the
+        # caller landed between two valid steps (e.g. 50 W from a slider with a
+        # finer step), snap to the closest mapped value instead of dropping the
+        # write with a warning. This makes the entity tolerant to UI rounding
+        # and to any future MIG_WATT_TO_ENUM additions.
+        valid_watts = sorted(MIG_WATT_TO_ENUM.keys())
+        watts = min(valid_watts, key=lambda w: abs(w - requested))
+        if watts != requested:
+            _LOGGER.debug(
+                "Snapped MIG setpoint %sW to nearest supported value %sW",
+                requested, watts,
+            )
+        enum_val = MIG_WATT_TO_ENUM[watts]
         await self._api.write(PROP_MIG_CONNECTION, enum_val)
         await self.coordinator.async_request_refresh()
